@@ -44,10 +44,9 @@ namespace Tully.Api
         app.UseDeveloperExceptionPage();
       }
 
-      app.Run(async (context) =>
-      {
-        await context.Response.WriteAsync("Hello World!");
-      });
+      app.UseGraphiQl();
+      
+      app.UseMvc();
     }
   }
 }

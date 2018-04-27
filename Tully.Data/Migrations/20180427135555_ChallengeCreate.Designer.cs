@@ -11,7 +11,7 @@ using Tully.Data;
 namespace Tully.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20180426210236_ChallengeCreate")]
+    [Migration("20180427135555_ChallengeCreate")]
     partial class ChallengeCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace Tully.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime>("DeletedAt");
+                    b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("Description");
 
@@ -43,7 +43,7 @@ namespace Tully.Data.Migrations
 
                     b.Property<int>("PrizeExp");
 
-                    b.Property<DateTime>("UpdatedAt");
+                    b.Property<DateTime?>("UpdatedAt");
 
                     b.HasKey("Id");
 
