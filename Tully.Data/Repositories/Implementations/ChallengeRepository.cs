@@ -6,7 +6,6 @@ namespace Tully.Data.Repositories.Implementations
   {
     public ChallengeRepository(Context context) : base(context)
     {
-
     }
   }
 }

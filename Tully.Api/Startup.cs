@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GraphQL;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tully.Api.Models;
+using Tully.Api.Models.Queries;
+using Tully.Api.Models.Types;
 using Tully.Data;
+using Tully.Data.Repositories;
+using Tully.Data.Repositories.Implementations;
 
 namespace Tully.Api
 {
@@ -34,6 +41,17 @@ namespace Tully.Api
       services.AddMvc();
 
       services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+      services.AddScoped<IChallengeRepository, ChallengeRepository>();
+
+      services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+
+      services.AddSingleton<TullyRootQuery>();
+
+      services.AddSingleton<ChallengeType>();
+
+      var sp = services.BuildServiceProvider();
+      services.AddSingleton<ISchema>(new TullySchema(new FuncDependencyResolver(type => sp.GetService(type))));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
