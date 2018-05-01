@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tully.Api.Models;
 using Tully.Api.Models.Queries;
 using Tully.Api.Models.Types;
+using Tully.Api.Models.Types.InputTypes;
 using Tully.Data;
 using Tully.Data.Repositories;
 using Tully.Data.Repositories.Implementations;
@@ -47,8 +48,10 @@ namespace Tully.Api
       services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
       services.AddSingleton<TullyRootQuery>();
+      services.AddSingleton<TullyMutation>();
 
       services.AddSingleton<ChallengeType>();
+      services.AddSingleton<ChallengeInputType>();
 
       var sp = services.BuildServiceProvider();
       services.AddSingleton<ISchema>(new TullySchema(new FuncDependencyResolver(type => sp.GetService(type))));

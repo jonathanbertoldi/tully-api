@@ -9,6 +9,7 @@ namespace Tully.Api.Models
     public TullySchema(IDependencyResolver resolver) : base(resolver)
     {
       Query = resolver.Resolve<TullyRootQuery>();
+      Mutation = resolver.Resolve<TullyMutation>();
     }
   }
 }

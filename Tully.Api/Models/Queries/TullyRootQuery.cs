@@ -1,5 +1,6 @@
 using System.Linq;
 using GraphQL.Types;
+using Microsoft.EntityFrameworkCore;
 using Tully.Api.Models.Types;
 using Tully.Data.Repositories;
 
@@ -9,9 +10,9 @@ namespace Tully.Api.Models.Queries
   {
     public TullyRootQuery(IChallengeRepository challengeRepository)
     {
-        Field<ListGraphType<ChallengeType>>(
+        FieldAsync<ListGraphType<ChallengeType>>(
           "challenges",
-          resolve: context => challengeRepository.GetAll().ToList()
+          resolve: async (context) => await challengeRepository.GetAll().ToListAsync()
         );
     }
   }
