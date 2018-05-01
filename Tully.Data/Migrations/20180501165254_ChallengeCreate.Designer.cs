@@ -11,7 +11,7 @@ using Tully.Data;
 namespace Tully.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20180427135555_ChallengeCreate")]
+    [Migration("20180501165254_ChallengeCreate")]
     partial class ChallengeCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -14,9 +14,9 @@ using Tully.Api.Models;
 using Tully.Api.Models.Queries;
 using Tully.Api.Models.Types;
 using Tully.Api.Models.Types.InputTypes;
+using Tully.Core.Data;
 using Tully.Data;
 using Tully.Data.Repositories;
-using Tully.Data.Repositories.Implementations;
 
 namespace Tully.Api
 {

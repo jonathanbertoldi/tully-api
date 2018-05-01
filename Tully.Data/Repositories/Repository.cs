@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Tully.Core.Data;
 using Tully.Core.Models;
 
-namespace Tully.Data.Repositories.Implementations
+namespace Tully.Data.Repositories
 {
   public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
   {

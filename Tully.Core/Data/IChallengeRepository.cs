@@ -1,6 +1,6 @@
 using Tully.Core.Models;
 
-namespace Tully.Data.Repositories
+namespace Tully.Core.Data
 {
   public interface IChallengeRepository : IRepository<Challenge>
   {

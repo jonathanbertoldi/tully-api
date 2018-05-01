@@ -1,6 +1,7 @@
 using GraphQL.Types;
 using Tully.Api.Models.Types;
 using Tully.Api.Models.Types.InputTypes;
+using Tully.Core.Data;
 using Tully.Core.Models;
 using Tully.Data.Repositories;
 
