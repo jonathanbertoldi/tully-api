@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tully.Data\Tully.Data.csproj" />
+    <ProjectReference Include="..\Tully.Logic\Tully.Logic.csproj" />
   </ItemGroup>
 
 </Project>
