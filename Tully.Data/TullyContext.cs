@@ -4,9 +4,9 @@ using Tully.Data.Configurations;
 
 namespace Tully.Data
 {
-  public class Context : DbContext
+  public class TullyContext : DbContext
   {
-    public Context(DbContextOptions options) : base(options)
+    public TullyContext(DbContextOptions options) : base(options)
     {
     }
 

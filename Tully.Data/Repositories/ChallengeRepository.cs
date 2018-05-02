@@ -5,7 +5,7 @@ namespace Tully.Data.Repositories
 {
   public class ChallengeRepository : Repository<Challenge>, IChallengeRepository
   {
-    public ChallengeRepository(Context context) : base(context)
+    public ChallengeRepository(TullyContext context) : base(context)
     {
     }
   }

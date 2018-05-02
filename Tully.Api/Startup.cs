@@ -41,7 +41,7 @@ namespace Tully.Api
     {
       services.AddMvc();
 
-      services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddDbContext<TullyContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddScoped<IChallengeRepository, ChallengeRepository>();
 

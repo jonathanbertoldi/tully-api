@@ -10,7 +10,7 @@ using Tully.Data;
 
 namespace Tully.Data.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(TullyContext))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

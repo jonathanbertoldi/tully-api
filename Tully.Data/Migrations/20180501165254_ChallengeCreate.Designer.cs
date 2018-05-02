@@ -10,7 +10,7 @@ using Tully.Data;
 
 namespace Tully.Data.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(TullyContext))]
     [Migration("20180501165254_ChallengeCreate")]
     partial class ChallengeCreate
     {

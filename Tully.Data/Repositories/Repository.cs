@@ -9,9 +9,9 @@ namespace Tully.Data.Repositories
 {
   public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
   {
-    private Context _context;
+    private TullyContext _context;
 
-    public Repository(Context context)
+    public Repository(TullyContext context)
     {
       _context = context;
     }
