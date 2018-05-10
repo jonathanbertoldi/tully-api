@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
+using GraphQL.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Tully.Api.Models;
 
@@ -28,7 +30,7 @@ namespace Tully.Api.Controllers
       {
         Schema = _schema,
         Query = query.Query,
-        Inputs = inputs
+        Inputs = inputs,
       };
 
       var result = await _documentExecuter.ExecuteAsync(executionOptions).ConfigureAwait(false);
@@ -41,5 +43,4 @@ namespace Tully.Api.Controllers
       return Ok(result);
     }
   }
-
 }

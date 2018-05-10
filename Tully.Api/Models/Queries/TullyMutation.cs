@@ -1,15 +1,21 @@
+using System;
+using System.Linq;
+using FluentValidation;
+using GraphQL;
 using GraphQL.Types;
+using MediatR;
 using Tully.Api.Models.Types;
 using Tully.Api.Models.Types.InputTypes;
 using Tully.Core.Data;
 using Tully.Core.Models;
 using Tully.Data.Repositories;
+using Tully.Logic.Features.Challenges.Create;
 
 namespace Tully.Api.Models.Queries
 {
   public class TullyMutation : ObjectGraphType
   {
-    public TullyMutation(IChallengeRepository challengeRepository)
+    public TullyMutation(IMediator mediator)
     {
       Name = "TullyMutation";
 
@@ -20,12 +26,11 @@ namespace Tully.Api.Models.Queries
         ),
         resolve: async (context) =>
         {
-          var challenge = context.GetArgument<Challenge>("challenge");
+          var challengeCommand = context.GetArgument<CreateChallengeCommand>("challenge");
 
-          await challengeRepository.Create(challenge);
-          await challengeRepository.Commit();
+          var result = await mediator.Send(challengeCommand);
 
-          return challenge;
+          return result;
         }
       );
     }

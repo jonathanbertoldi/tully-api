@@ -1,9 +1,10 @@
 using GraphQL.Types;
 using Tully.Core.Models;
+using Tully.Logic.Features.Challenges.ViewModels;
 
 namespace Tully.Api.Models.Types
 {
-  public class ChallengeType : ObjectGraphType<Challenge>
+  public class ChallengeType : ObjectGraphType<ChallengeView>
   {
     public ChallengeType()
     {

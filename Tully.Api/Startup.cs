@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.Types;
+using MediatR;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,9 +16,14 @@ using Tully.Api.Models;
 using Tully.Api.Models.Queries;
 using Tully.Api.Models.Types;
 using Tully.Api.Models.Types.InputTypes;
+using Tully.Logic.Features;
 using Tully.Core.Data;
 using Tully.Data;
 using Tully.Data.Repositories;
+using FluentValidation;
+using Tully.Logic.Features.Challenges.Create;
+using System.Reflection;
+using Tully.Logic;
 
 namespace Tully.Api
 {
@@ -39,12 +46,19 @@ namespace Tully.Api
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddMvc();
+      services
+        .AddMvc()
+        .AddFluentValidation();
 
+      // Data
       services.AddDbContext<TullyContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddScoped<IChallengeRepository, ChallengeRepository>();
 
+      // Logic
+      LogicUtils.RegisterLogicServices(Configuration, services);
+
+      // API
       services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
       services.AddSingleton<TullyRootQuery>();
