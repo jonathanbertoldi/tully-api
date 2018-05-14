@@ -1,41 +1,42 @@
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Tully.Core.Data;
 using Tully.Core.Models;
+using Tully.Logic.Exceptions;
 using Tully.Logic.Features.Challenges.ViewModels;
 
 namespace Tully.Logic.Features.Challenges.Create
 {
   public class Handler : AsyncRequestHandler<CreateChallengeCommand, ChallengeView>
   {
-    private readonly IValidator<CreateChallengeCommand> _validator;
-    private readonly IChallengeRepository _challengeRepository;
+    private IValidator<CreateChallengeCommand> _validator;
+    private IChallengeRepository _challengeRepository;
+    private IMapper _mapper;
 
-    public Handler(IValidator<CreateChallengeCommand> validator, IChallengeRepository challengeRepository)
+    public Handler(IValidator<CreateChallengeCommand> validator, IChallengeRepository challengeRepository, IMapper mapper)
     {
       _validator = validator;
       _challengeRepository = challengeRepository;
+      _mapper = mapper;
     }
 
-    protected override async Task<ChallengeView> HandleCore(CreateChallengeCommand command)
+    protected override async Task<ChallengeView> HandleCore(CreateChallengeCommand request)
     {
-      var result = _validator.Validate(command);
+      var validation = _validator.Validate(request);
 
-      if (result.Errors.Any()) return new ChallengeView { ValidationFailures = result.Errors };
+      if (validation.Errors.Any()) throw new BadRequestException(validation.Errors);
 
-      var challenge = new Challenge
-      {
-        Name = command.Name,
-        Description = command.Description,
-        PrizeExp = command.PrizeExp
-      };
+      var challenge = _mapper.Map<Challenge>(request);
 
       await _challengeRepository.Create(challenge);
       await _challengeRepository.Commit();
 
-      return new ChallengeView(challenge);
+      var result = _mapper.Map<ChallengeView>(challenge);
+
+      return result;
     }
   }
 }

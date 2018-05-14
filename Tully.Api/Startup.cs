@@ -51,24 +51,13 @@ namespace Tully.Api
         .AddFluentValidation();
 
       // Data
-      services.AddDbContext<TullyContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-      services.AddScoped<IChallengeRepository, ChallengeRepository>();
+      DataInjector.RegisterDataServices(Configuration, services);
 
       // Logic
-      LogicUtils.RegisterLogicServices(Configuration, services);
+      LogicInjector.RegisterLogicServices(Configuration, services);
 
-      // API
-      services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-
-      services.AddSingleton<TullyRootQuery>();
-      services.AddSingleton<TullyMutation>();
-
-      services.AddSingleton<ChallengeType>();
-      services.AddSingleton<ChallengeInputType>();
-
-      var sp = services.BuildServiceProvider();
-      services.AddSingleton<ISchema>(new TullySchema(new FuncDependencyResolver(type => sp.GetService(type))));
+      // GraphQL
+      GraphQLInjector.RegisterGraphQLServices(Configuration, services);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

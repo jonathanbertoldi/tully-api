@@ -5,23 +5,8 @@ using Tully.Core.Models;
 
 namespace Tully.Logic.Features.Challenges.ViewModels
 {
-  public class ChallengeView : BaseView
+  public class ChallengeView
   {
-    public ChallengeView()
-    {
-    }
-
-    public ChallengeView(Challenge challenge)
-    {
-      Id = challenge.Id;
-      Name = challenge.Name;
-      Description = challenge.Description;
-      Photo = challenge.Photo;
-      CreatedAt = challenge.CreatedAt;
-      UpdatedAt = challenge.UpdatedAt;
-      DeletedAt = challenge.DeletedAt;
-    }
-
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }

@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
+using FluentValidation.Results;
 using GraphQL;
 using GraphQL.Types;
+using GraphQL.Validation;
 using MediatR;
 using Tully.Api.Models.Types;
 using Tully.Api.Models.Types.InputTypes;
 using Tully.Core.Data;
 using Tully.Core.Models;
 using Tully.Data.Repositories;
+using Tully.Logic.Exceptions;
 using Tully.Logic.Features.Challenges.Create;
 
 namespace Tully.Api.Models.Queries
@@ -28,9 +32,18 @@ namespace Tully.Api.Models.Queries
         {
           var challengeCommand = context.GetArgument<CreateChallengeCommand>("challenge");
 
-          var result = await mediator.Send(challengeCommand);
+          try
+          {
+            var result = await mediator.Send(challengeCommand);
 
-          return result;
+            return result;
+          }
+          catch (Exception e)
+          {
+            context.Errors.AddGraphQLExceptionRange(e);
+
+            return null;
+          }
         }
       );
     }
